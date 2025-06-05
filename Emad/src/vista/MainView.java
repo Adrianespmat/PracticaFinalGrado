@@ -1,5 +1,6 @@
 package vista;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 import controlador.UserController;
@@ -8,7 +9,7 @@ import model.entities.User;
 public class MainView {
 	private UserController userController;
 	
-	public MainView() {
+	public MainView() throws ClassNotFoundException, SQLException, IOException {
 		userController = new UserController();
 	}
 	
@@ -25,9 +26,13 @@ public class MainView {
 			switch (opcion) {
 			
 			case 1: userController.registerUser();
+					break;
 			case 2: userController.login();
+					break;
 			case 3: System.exit(0);
+					break;
 			default: System.out.println("Opcion invalida.");
+					break;
 			}
 		}
 	}

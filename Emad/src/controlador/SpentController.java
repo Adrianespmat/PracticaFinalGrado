@@ -8,7 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import model.ConexionBD;
+
 import vista.EnterUser;
 
 public class SpentController {
@@ -23,7 +23,7 @@ public class SpentController {
         try {
         	Date fecha = new SimpleDateFormat("dd/MM/yyyy").parse(fechaStr);
         	
-        	 try (Connection conn = ConexionBD.obtenerConexion()) {
+        	 try (Connection conn = null) {
                  String sql = "INSERT INTO gastos (car_id, tipo, kilometraje, fecha, importe, descripcion) VALUES (?, ?, ?, ?, ?, ?)";
                  PreparedStatement ps = conn.prepareStatement(sql);
                  ps.setInt(1, carId);
@@ -49,7 +49,7 @@ public class SpentController {
         if (!filtroFechaInicio.isEmpty()) sql += " AND fecha >= ?";
         if (!filtroFechaFin.isEmpty()) sql += " AND fecha <= ?";
         
-        try (Connection conn = ConexionBD.obtenerConexion()) {
+        try (Connection conn = null) {
         	PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, carId);
             

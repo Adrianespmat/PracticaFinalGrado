@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import model.ConexionBD;
+
 import vista.EnterUser;
 
 public class CarController {
@@ -16,7 +16,7 @@ public class CarController {
         String matricula = EnterUser.leerTexto();
         int año = EnterUser.leerEntero();
         
-        try (Connection conn = ConexionBD.obtenerConexion()) {
+        try (Connection conn = null) {
             String sql = "INSERT INTO Car (marca, modelo, matricula, año) VALUES (?, ?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, marca);
@@ -41,7 +41,7 @@ public class CarController {
 	}
 	
 	public void listCar(String uuidUser) throws SQLException {
-		try ( Connection conn = ConexionBD.obtenerConexion()) {
+		try ( Connection conn = null) {
 			String sql = "SELECT c.id, c.marca, c.modelo, c.matricula, c.año FROM car c JOIN propietarios p ON c.id = p.car_id HWERE p.uuid_user = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, uuidUser);
@@ -63,7 +63,7 @@ public class CarController {
 		 int carId = EnterUser.leerEntero();
 	        String newUuid = EnterUser.leerTexto();
 
-	        try (Connection conn = ConexionBD.obtenerConexion()) {
+	        try (Connection conn = null) {
 	            String sql = "INSERT INTO propietarios (car_id, uuid_user) VALUES (?, ?)";
 	            PreparedStatement ps = conn.prepareStatement(sql);
 	            ps.setInt(1, carId);

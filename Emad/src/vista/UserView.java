@@ -19,7 +19,11 @@ public class UserView {
 	}
 
 	public User login() {
+		
+		System.out.println("Nombre: ");
 		String nombre = EnterUser.leerTexto();
+		
+		System.out.println("Contraseña: ");
 		String contrasena = EnterUser.leerTexto();
 		String hash = HashUtil.hashear(contrasena);
 		User newUser = new User(nombre, hash);
