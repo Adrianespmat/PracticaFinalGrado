@@ -36,7 +36,7 @@ public class UserModel implements IUserModel {
 
 		}
 	}
-	public void login(User newUser) {
+	public User login(User newUser) {
 		
 		try  {
 			String sql = "SELECT uuid FROM User WHERE nombre = ? AND contrasena = ?";
@@ -54,7 +54,7 @@ public class UserModel implements IUserModel {
 		} catch (SQLException e) {
 			System.out.println("Error al iniciar sesión: " + e.getMessage());
 		}
-
+		return ;
 	}
 	
 

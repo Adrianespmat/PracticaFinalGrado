@@ -1,44 +1,43 @@
 package controlador;
 
 import java.sql.Statement;
+
+import model.CarModel;
+import model.ICarModel;
+import model.IUserModel;
+import model.UserModel;
+import model.entities.Car;
+import model.entities.User;
+
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
+import vista.CarView;
 import vista.EnterUser;
+import vista.UserView;
 
 public class CarController {
-	public void createCar(String uuidUser) {
-		String marca = EnterUser.leerTexto();
-        String modelo = EnterUser.leerTexto();
-        String matricula = EnterUser.leerTexto();
-        int año = EnterUser.leerEntero();
-        
-        try (Connection conn = null) {
-            String sql = "INSERT INTO Car (marca, modelo, matricula, año) VALUES (?, ?, ?, ?)";
-            PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, marca);
-            ps.setString(2, modelo);
-            ps.setString(3, matricula);
-            ps.setInt(4, año);
-            ps.executeUpdate();
-
-            ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                int carId = rs.getInt(1);
-              
-                PreparedStatement psProp = conn.prepareStatement("INSERT INTO propietarios (coche_id, uuid_usuario) VALUES (?, ?)");
-                psProp.setInt(1, carId);
-                psProp.setString(2, uuidUser);
-                psProp.executeUpdate();
-                System.out.println("Coche creado correctamente.");
-            }
-        } catch (SQLException e) {
-            System.out.println("Error al crear coche: " + e.getMessage());
-        }
+	
+	private CarView carView;
+	private ICarModel carModel;
+	
+	public void CarController(String uuidUser) throws ClassNotFoundException, SQLException, IOException {
+		carView = new CarView();
+		this.carModel = new CarModel();
+       
 	}
+	public void createCar() {
+		Car newCar = carView.createCar();
+		User currentUser = ;
+		// necesitamos que UserModel guarde la informacion que hemos recibido
+		carModel.createCar(newCar, currentUser);
+	}
+	
+        
+	
 	
 	public void listCar(String uuidUser) throws SQLException {
 		try ( Connection conn = null) {
@@ -75,3 +74,4 @@ public class CarController {
 	        }
 	}
 }
+

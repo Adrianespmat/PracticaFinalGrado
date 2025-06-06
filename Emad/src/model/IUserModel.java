@@ -6,6 +6,6 @@ public interface IUserModel {
 
 	void registerUser(User newUser);
 
-	
+	void login(User newUser);
 
 }

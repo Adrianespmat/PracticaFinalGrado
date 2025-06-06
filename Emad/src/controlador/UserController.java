@@ -34,7 +34,7 @@ public class UserController {
 	public void login() {
 		User newUser = userView.login();
 		
-		userModel.registerUser(newUser);
+		userModel.login(newUser);
 	}
 
 }
