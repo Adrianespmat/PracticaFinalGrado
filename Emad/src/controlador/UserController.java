@@ -12,12 +12,14 @@ import Utils.HashUtil;
 import model.IUserModel;
 import model.UserModel;
 import model.entities.User;
+import p09.model.dtos.UserLoginDto;
 import vista.EnterUser;
 import vista.UserView;
 
 public class UserController {
 	private UserView userView;
 	private IUserModel userModel;
+	private Object passwordEncryptor;
 
 	public UserController() throws ClassNotFoundException, SQLException, IOException {
 		userView = new UserView();
@@ -31,10 +33,23 @@ public class UserController {
 		userModel.registerUser(newUser);
 	}
 
-	public void login() {
-		User newUser = userView.login();
+	public boolean login() {
 		
+		User newUser = userView.login();
+
 		userModel.login(newUser);
+
+		User userDb = this.userModel.byName(userDb.getNombre());
+
+		if (userDb == null) {
+			return false;
+		}
+		// Hashear la contraseña ingresada
+		String hashedInpuntPassword = HashUtil.hashear(newUser.getContrasena());
+		
+		// Comparar el hash de la contraseña ingresada con el hash almacenado
+		boolean result = hashedInputPassword.equals(userDb.getContrasena());
+		return result;
 	}
 
 }

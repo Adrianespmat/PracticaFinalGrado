@@ -44,4 +44,18 @@ public void createCar(Car newCar, User currentUser) {
     }
 }
 
+public void addPropietary(int carId, String Uuid) {
+	
+	 try {
+         String sql = "INSERT INTO propietarios (car_id, uuid_user) VALUES (?, ?)";
+         PreparedStatement ps = connection.prepareStatement(sql);
+         ps.setInt(1, carId);
+         ps.setString(2, Uuid);
+         ps.executeUpdate();
+         System.out.println("Nuevo propietario añadido correctamente.");
+     } catch (SQLException e) {
+         System.out.println("Error al añadir propietario: " + e.getMessage());
+     }
+}
+
 }

@@ -36,6 +36,7 @@ public class UserModel implements IUserModel {
 
 		}
 	}
+	
 	public User login(User newUser) {
 		
 		try  {
@@ -54,7 +55,7 @@ public class UserModel implements IUserModel {
 		} catch (SQLException e) {
 			System.out.println("Error al iniciar sesión: " + e.getMessage());
 		}
-		return ;
+		return newUser;
 	}
 	
 
